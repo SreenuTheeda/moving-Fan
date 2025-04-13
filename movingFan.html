@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fan Control</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .fan-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+        }
+        .fan {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            border-radius: 50%;
+            background: lightgray;
+        }
+        .blade {
+            width: 50px;
+            height: 20px;
+            background: blue;
+            position: absolute;
+            top: 40px;
+            left: 25px;
+            border-radius: 5px;
+        }
+        .blade:nth-child(2) {
+            transform: rotate(120deg);
+            top: 10px;
+            left: 40px;
+        }
+        .blade:nth-child(3) {
+            transform: rotate(240deg);
+            top: 10px;
+            left: 10px;
+        }
+        .rotate {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .on { background: green; color: white; }
+        .off { background: red; color: white; }
+        .speed { background: gray; color: white; }
+    </style>
+</head>
+<body>
+    <div class="fan-container">
+        <div class="fan" id="fan">
+            <div class="blade"></div>
+            <div class="blade"></div>
+            <div class="blade"></div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="on" onclick="startFan()">ON</button>
+        <button class="off" onclick="stopFan()">OFF</button>
+        <button class="speed" onclick="setSpeed(1)">1</button>
+        <button class="speed" onclick="setSpeed(2)">2</button>
+        <button class="speed" onclick="setSpeed(3)">3</button>
+    </div>
+    <script>
+        let fan = document.getElementById("fan");
+        
+        function startFan() {
+            fan.style.animationDuration = "1s";
+            fan.classList.add("rotate");
+        }
+        
+        function stopFan() {
+            fan.classList.remove("rotate");
+        }
+        
+        function setSpeed(speed) {
+            if (fan.classList.contains("rotate")) {
+                fan.style.animationDuration = `${1 / speed}s`;
+            }
+        }
+    </script>
+</body>
+</html>
